@@ -39,7 +39,7 @@ for example,if there's a table(table `A`) in the database ,and a column as anoth
 ```
 in this way, the JPA will do the query sent from B as a sequence of :
 ```
- 1. query from table B ,filter all the columns by relevant conditions.
+ 1. query from table B ,filter all the rows by relevant conditions.
  2. query from table A by id ,from the above queries result.
 ```
 for queries like this,small amount of query ,it will be acceptable.But when the queried rows from the 1st query reaches some quantity,the interaction between the application server and the database will cause performance problems.
