@@ -69,7 +69,7 @@ apparently ,from the display above,we can draw a safe conclusion: ** we should u
 	- configure universal URI for excels,then you can configure the PROXY at the NGINX layer to specified machines.
 	- configure a sub-domain,then as for the URL,you can write as `//subdomain/xxx`(don't touch the protocol,the browser will adapt it no matter it is http or https),you just modify the domain of the request URL. and configure the subdomain proxy at the NGINX.
 
-- configure the Database query to a slave database instead of the master database, because the query may bring some pressure to the database that may cause the sync latency rising between master database and the slave ones and of course the performance problems which will affect other database operations.
+- configure the Database query to a slave database instead of the master one, because the query may bring some pressure to the database that may cause the sync latency rising between master database and the slave ones and of course the performance problems which will affect other database operations.
 
 - a little improvement by object sharing. for our export,there will be many Date object .I do some object sharing in the request by a `HashMap`,I can get a formatted Date String by a `Get` but not a `FastDateFormat` which will be much faster and reduce the memory footprint.
 
