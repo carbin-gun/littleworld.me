@@ -8,16 +8,6 @@ banner = "banners/redis.jpg"
 +++
 simple distributed lock on redis and how to improve it with the redlock algorithm.the pros and cons the redlock algorithm.
 <!--more-->
-+++
-title = "redis string operations"
-date = "2016-10-14T16:20:41+08:00"
-tags = ["redis","string","rate limit"]
-categories = ["programming","cache"]
-menu = ""
-banner = "banners/redis.jpg"
-+++
-Notes about the commands of Redis String operations.Especially some scenarios that would be much useful.
-<!--more-->
 
 
 <!--more-->
