@@ -25,14 +25,14 @@ golang build tags introduction,and some tricks for it.
 - To distinguish build constraints from package documentation, a series of build constraints must be followed by a blank line.
 - A build constraint is evaluated as the OR of space-separated options; each option evaluates as the AND of its comma-separated terms; and each term is an alphanumeric word or, preceded by !, its negation. That is, the build constraint:
 	
-	```golang
+	```
 	// +build linux,386 darwin,!cgo
 
 	```
 corresponds to the boolean formula: 
 
-	```golang
-	// +build (linux AND 386) OR (darwin AND (NOT cgo))`
+	```
+	// +build (linux AND 386) OR (darwin AND (NOT cgo))
 	```
 - A file may have multiple build constraints. The overall constraint is the AND of the individual constraints. That is, the build constraints:
 
@@ -47,7 +47,7 @@ corresponds to the boolean formula:
 	```
 - If a file's name, after stripping the extension and a possible _test suffix, matches any of the following patterns:
 	
-	```
+	```go
 	*_GOOS
 	*_GOARCH
 	*_GOOS_GOARCH
@@ -64,7 +64,7 @@ corresponds to the boolean formula:
 ## Common Usage
 - build the source for different platform.all the platforms defined by the `GOOS` and `GOARCH`are included by the `src/go/build/syslist.go`:
 
-	```	
+	```	golang
 	package build
 
 	const goosList = "android darwin dragonfly freebsd linux nacl netbsd openbsd plan9 solaris windows "
@@ -81,47 +81,47 @@ corresponds to the boolean formula:
 
 main.go
 
-	 ```golang
-	package main
+```go 
+package main
 	
-	import (
-		"fanfu-golang/buildtags/lib"
-	)
-	func main(){
-		lib.Tell()
-	}
+import (
+	"fanfu-golang/buildtags/lib"
+)
+func main(){
+	lib.Tell()
+}
 
- 	```
+```
  
 lib/dev.go
 
-	```golang
-	// +build !prod
+```go
+// +build !prod
 	
-	package lib
+package lib
 	
-	import "fmt"
+import "fmt"
 	
-	func Tell(){
-		fmt.Println("hello from dev")
-	}
+func Tell(){
+	fmt.Println("hello from dev")
+}
 
-	```
+```
 
 lib/prod.go
 
-	```golang
-	// +build prod
+```golang
+// +build prod
 	
-	package lib
+package lib
 	
-	import "fmt"
+import "fmt"
 	
-	func Tell(){
-		fmt.Println("hello from dev")
-	}
+func Tell(){
+	fmt.Println("hello from dev")
+}
 
-	```
+```
 we can build with `go build` and execute.it will output.
 
 ```bash
@@ -132,7 +132,7 @@ hello from dev
 ```
 but when we build with `go build --tags prod` and execute the binary,the output will be:
 
-```
+```bash
 $ go build --tags prod
 $ ./buildtags
 hello from prod
