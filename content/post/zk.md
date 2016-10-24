@@ -159,7 +159,7 @@ JLine support is enabled
 
 - pattern should be like this:
 
-	```
+	```java
 	try {
 	  zk.delete(path)
 	} catch {
@@ -170,7 +170,7 @@ JLine support is enabled
 	```
 - we can't do like this:
 
-	```
+	```java
 	try {
 	zk.create(path, data, CreateMode.EPHEMERAL)
 	} catch {
