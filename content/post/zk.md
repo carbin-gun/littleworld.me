@@ -154,6 +154,35 @@ JLine support is enabled
 2016-10-23 23:10:32,073 [myid:] - INFO  [main-SendThread(localhost:2181):ClientCnxn$SendThread@876] - Socket connection established to localhost/127.0.0.1:2181, initiating session
 2016-10-23 23:10:32,083 [myid:] - INFO  [main-SendThread(localhost:2181):ClientCnxn$SendThread@1299] - Session establishment complete on server localhost/127.0.0.1:2181, sessionid = 0x157f21695650000, negotiated timeout = 4000
 	```
+	
+## Ephemeral Node Creation
 
+- pattern should be like this:
+
+	```
+	try {
+	  zk.delete(path)
+	} catch {
+	  e: NoNodeException => // do nothing
+	}
+	
+	zk.create(path, data, CreateMode.EPHEMERAL)
+	```
+- we can't do like this:
+
+	```
+	try {
+	zk.create(path, data, CreateMode.EPHEMERAL)
+	} catch {
+	// The ephemeral node hasn't been deleted yet.
+	e: NodeExistsException => zk.set(path, data)
+	}
+	
+	```
+- The above way ,in some senario like system quick restart,the create may fail because the before node hasn't been removed,but after some period of time,the node will be removed.the reason is:**if you didn't create the ephemeral node in your session, your session doesn't own the node, so when the owning session expires, the node will be deleted**. Apparently,the newly session did not own the ephemeral node.so the bug showed up.
+
+- blog explained:
+	> https://blog.box.com/blog/a-gotcha-when-using-zookeeper-ephemeral-nodes/
+	
 ---
 # EOF
